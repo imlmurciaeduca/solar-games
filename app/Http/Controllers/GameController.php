@@ -2,13 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateGameRequest;
+use App\Http\Requests\GameRequest;
 use App\Http\Resources\GameResource;
 use App\Http\Resources\GamesRelationshipsGenreResource;
 use App\Http\Resources\GamesRelationshipsReviewsResource;
 use App\Models\Game;
 use App\Models\Genre;
 use App\Traits\CheckInclude;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class GameController extends Controller
 {
@@ -42,7 +47,7 @@ class GameController extends Controller
         return new GameResource($game);
     }
 
-    public function store(Request $request) {
+    public function store(GameRequest $request) {
         $game = Game::create($request->all());
         return new GameResource($game);
     }
@@ -69,6 +74,23 @@ class GameController extends Controller
 
     public function genreGames(Genre $genre) {
         return GameResource::collection($genre->games);
+    }
+
+    public function createGameWithGenre(Genre $genre, Request $request) {
+
+        if (Auth::user()->can('create', Game::class)) {
+            $request->merge([
+                'genre_id' => $genre->id
+            ]);
+            $game = Game::create($request->all());
+            return new GameResource($game);
+        }
+
+        return response()->json([
+            'message' => 'No puedes pasar',
+            'code' => 403
+        ]);
+
     }
 
 }
