@@ -31,8 +31,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Genre::factory(5)->create();
-        Game::factory(20)->create();
-        User::factory(5)->create();
-        Review::factory(50)->create();
+        // Game::factory(20)->create();
+        // User::factory(5)->create();
+        // Review::factory(50)->create();
     }
 }

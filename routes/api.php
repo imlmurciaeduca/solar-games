@@ -1,12 +1,10 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\GameController;
-use App\Http\Controllers\GenreController;
-use App\Http\Controllers\ReviewController;
-use App\Http\Controllers\UserController;
-use App\Models\Game;
-use App\Models\Review;
+use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\GameController;
+use App\Http\Controllers\API\GenreController;
+use App\Http\Controllers\API\ReviewController;
+use App\Http\Controllers\API\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,7 +13,6 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/', function () {
     return "Laravel ha vuelto, ¡y en forma de API!";
 });
-
 
 Route::apiResource('genres', GenreController::class)->only(['index', 'show']);
 Route::apiResource('games', GameController::class)->only(['index', 'show']);

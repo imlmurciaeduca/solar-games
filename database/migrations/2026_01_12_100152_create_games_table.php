@@ -24,6 +24,11 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnDelete();
 
+            $table->string('cover')
+                ->nullable();
+            $table->string('description')
+                ->nullable();
+
             $table->timestamps();
         });
     }

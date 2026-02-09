@@ -23,6 +23,8 @@ class GameResource extends JsonResource
                 'developer' => $this->developer,
                 'publisher' => $this->publisher,
                 'releaseYear' => (string) $this->release_year,
+                'cover' => $this->cover,
+                'description' => $this->description,
                 'createdAt' => $this->created_at,
                 'updatedAt' => $this->updated_at,
             ],
